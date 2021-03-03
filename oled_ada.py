@@ -6,7 +6,6 @@
 # Adafruit Blinka to support CircuitPython libraries. CircuitPython does
 # not support PIL/pillow (python imaging library)!
 
-from os import getpgid
 import time
 import requests
 
@@ -17,8 +16,6 @@ import busio
 from PIL import Image, ImageDraw, ImageFont
 import adafruit_ssd1306
 
-
-# Create the I2C interface.
 i2c = busio.I2C(SCL, SDA)
 
 # Create the SSD1306 OLED class.
@@ -52,21 +49,38 @@ font_small = ImageFont.truetype(
 # font = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', 9)
 
 
-from requests.api import get
+# from requests.api import get
 
 time_interval = 60
 
 
 def get_prices():
+    pass
+
+
+def coinmarketcap():
     api_key = "ce24263e-b0fa-4be8-8e5c-9e5f64697b52"
     url = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest"
     headers = {"Accepts": "application/json", "X-CMC_PRO_API_KEY": api_key}
-    response = requests.get(url, headers=headers)
-    response_json = response.json()
+    try:
+        response = requests.get(url, headers=headers)
+        response_json = response.json()
+    except Exception as er:
+        print(er)
+        return 0, 0
 
     btc_price = response_json["data"][0]
     eth_price = response_json["data"][1]
     return btc_price["quote"]["USD"]["price"], eth_price["quote"]["USD"]["price"]
+
+
+def coingecko():
+    if "pycoingecko" not in sys.modules:
+        from pycoingecko import CoinGeckoAPI
+    cg = CoinGeckoAPI()
+    print(cg.ping())
+    btc_price = cg.get_price(ids="bitcoin", vs_currencies="usd")["bitcoin"]["usd"]
+    eth_price = cg.get_price(ids="ethereum", vs_currencies="usd")["ethereum"]["usd"]
 
 
 duration = 900
@@ -75,13 +89,7 @@ while True:
     # Draw a black filled box to clear the image.
     draw.rectangle((0, 0, width, height), outline=0, fill=0)
 
-    # CoinGecko
-    # cg = CoinGeckoAPI()
-    # print(cg.ping())
-    # btc_price = cg.get_price(ids="bitcoin", vs_currencies="usd")["bitcoin"]["usd"]
-    # eth_price = cg.get_price(ids="ethereum", vs_currencies="usd")["ethereum"]["usd"]
-
-    btc_price, eth_price = get_prices()
+    btc_price, eth_price = coinmarketcap()
     bit_dir = "▲" if btc_price > 35964.79 else "▼"
     eth_dir = "▲" if eth_price > 1563.85 else "▼"
     # Display image.
