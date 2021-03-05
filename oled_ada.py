@@ -67,11 +67,11 @@ def coinmarketcap():
         response_json = response.json()
     except Exception as er:
         print(er)
-        return 0, 0
+        return 0, 0, True
 
     btc_price = response_json["data"][0]
     eth_price = response_json["data"][1]
-    return btc_price["quote"]["USD"]["price"], eth_price["quote"]["USD"]["price"]
+    return btc_price["quote"]["USD"]["price"], eth_price["quote"]["USD"]["price"], False
 
 
 def coingecko():
@@ -89,9 +89,16 @@ while True:
     # Draw a black filled box to clear the image.
     draw.rectangle((0, 0, width, height), outline=0, fill=0)
 
-    btc_price, eth_price = coinmarketcap()
-    bit_dir = "▲" if btc_price > 35964.79 else "▼"
-    eth_dir = "▲" if eth_price > 1563.85 else "▼"
+    btc_coin, eth_coin, error = coinmarketcap()
+    if not error:
+        btc_price = btc_coin
+        eth_price = eth_coin
+        bit_dir = "▲" if btc_price > 35964.79 else "▼"
+        eth_dir = "▲" if eth_price > 1563.85 else "▼"
+    else:
+        bit_dir = "Err"
+        eth_dir = "Err"
+        draw.text((100, 20), "error")
     # Display image.
     draw.text((0, 0), "฿ " + f"{int(btc_price):,}" + bit_dir, font=font, fill=255)
     draw.text((0, 15), "Δ  " + f" {int(eth_price):,}" + eth_dir, font=font, fill=255)
