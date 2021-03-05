@@ -39,7 +39,7 @@ except OSError:
 while True:
     minute = time.strftime(fmt)
     left, right = minute
-    display.set_charachter(0, left)
-    display.set_charachter(1, right)
+    display.set_character(0, left)
+    display.set_character(1, right)
     display.show()
     time.sleep(1.0 / 60)
