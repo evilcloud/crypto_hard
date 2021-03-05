@@ -64,15 +64,17 @@ def crypto_direction(asset: str, price: float):
     }
     # if asset not in unit_price:
     #     return "?"
-    return "▲" if price > unit_price[asset] else "▼"
+    if price:
+        return "▲" if price > unit_price[asset] else "▼"
+    return "X"
 
 
-def quote_line(asset: str, price: float, spaces: int) -> str:
-    icons = {
-        "BTC": "฿",
-        "ETH": "Δ",
-    }
-    return f"{icons[asset]} {int(price)} {crypto_direction(asset, price) if asset else 'X'}"
+# def quote_line(asset: str, price: float, spaces: int) -> str:
+#     icons = {
+#         "BTC": "฿",
+#         "ETH": "Δ",
+#     }
+#     return f"{icons[asset]} {int(price)} {crypto_direction(asset, price) if asset else 'X'}"
 
 
 def line_spaces(btc, eth):
@@ -90,6 +92,7 @@ eth = 0
 
 while True:
     disp.fill(0)
+    draw.rectangle((0, 0, width, height), outline=0, fill=0)
     btc_quote, eth_quote = coinmarketcap()
     if btc_quote and eth_quote:
         btc = btc_quote
@@ -100,11 +103,27 @@ while True:
         # btc_direction = "X"
         draw.text((100, 25), "EX-ERROR", font=font_small, fill=255)
 
+    icons = {
+        "BTC": "฿",
+        "ETH": "Δ",
+    }
+
     btc_spaces, eth_spaces = line_spaces(btc, eth)
-    draw.text((0, 0), quote_line("BTC", btc, btc_spaces), font=font, fill=255)
-    draw.text((0, 15), quote_line("ETH", eth, eth_spaces), font=font, fill=255)
+    draw.text(
+        (0, 0),
+        f"{icons['BTC']} {btc_spaces}{int(btc:,)}{crypto_direction('BTC', btc)}",
+        font=font,
+        fill=255,
+    )
+    draw.text(
+        (0, 15),
+        f"{icons['ETH']} {eth_spaces}{int(eth:,)}{crypto_direction('ETH', eth)}",
+        font=font,
+        fill=255,
+    )
 
     for t in range(time_interval):
+        draw.rectangle((100, 0, width, 24), outline=0, fill=0)
         mins, secs = divmod(time_interval - t, 60)
         timer = f"{mins:02d}:{secs:02d}"
         draw.text((100, 2), "next:", font=font_small, fill=255)
