@@ -106,7 +106,7 @@ while True:
 
     for t in range(time_interval):
         mins, secs = divmod(time_interval - t, 60)
-        timer = "{:02d}:{02d}".format(mins, secs)
+        timer = f"{mins:02d}:{secs:02d}"
         draw.text((100, 2), "next:", font=font_small, fill=255)
         draw.text((100, 12), str(timer), font=font_small, fill=255)
 
