@@ -10,13 +10,16 @@ from board import SCL, SDA
 import busio
 import adafruit_ssd1306
 
-# from oled_ada import height, time_interval, width
+from oled_ada import height, time_interval, width
 
+# height = 35
+# width = 128
+# time_interval = 900
 
 # Initialize and clean screen
 i2c = busio.I2C(SCL, SDA)
 disp = adafruit_ssd1306.SSD1306_I2C(128, 32, i2c)
-image = Image.new("1", disp.width, disp.height)
+image = Image.new("1", (disp.width, disp.height))
 draw = ImageDraw.Draw(image)
 disp.fill(255)
 disp.show()
