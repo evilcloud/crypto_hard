@@ -111,13 +111,13 @@ while True:
     btc_spaces, eth_spaces = line_spaces(btc, eth)
     draw.text(
         (0, 0),
-        f"{icons['BTC']} {btc_spaces}{int(btc:,)}{crypto_direction('BTC', btc)}",
+        f"{icons['BTC']} {btc_spaces}{int(btc):,}{crypto_direction('BTC', btc)}",
         font=font,
         fill=255,
     )
     draw.text(
         (0, 15),
-        f"{icons['ETH']} {eth_spaces}{int(eth:,)}{crypto_direction('ETH', eth)}",
+        f"{icons['ETH']} {eth_spaces}{int(eth):,}{crypto_direction('ETH', eth)}",
         font=font,
         fill=255,
     )
