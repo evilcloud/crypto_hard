@@ -10,11 +10,11 @@ from board import SCL, SDA
 import busio
 import adafruit_ssd1306
 
-from oled_ada import height, time_interval, width
+# from oled_ada import height, time_interval, width
 
-# height = 35
-# width = 128
-# time_interval = 900
+height = 35
+width = 128
+time_interval = 900
 
 # Initialize and clean screen
 i2c = busio.I2C(SCL, SDA)
@@ -62,9 +62,9 @@ def crypto_direction(asset: str, price: float):
         "BTC": 35964.79,
         "ETH": 1563.85,
     }
-    if asset not in unit_price:
-        return "?"
-    return "▲" if price > unit_price["asset"] else "▼"
+    # if asset not in unit_price:
+    #     return "?"
+    return "▲" if price > unit_price[asset] else "▼"
 
 
 def quote_line(asset: str, price: float, spaces: int) -> str:
@@ -72,7 +72,7 @@ def quote_line(asset: str, price: float, spaces: int) -> str:
         "BTC": "฿",
         "ETH": "Δ",
     }
-    return f"{icons['icons']} {int(price)} {crypto_direction(asset, price) if asset else 'X'}"
+    return f"{icons[asset]} {int(price)} {crypto_direction(asset, price) if asset else 'X'}"
 
 
 def line_spaces(btc, eth):
