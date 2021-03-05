@@ -33,7 +33,7 @@ font_small = ImageFont.truetype(
 )
 
 
-def get_exchange_data(exchange: str):
+def get_exchange_data(exchange):
     with open("venv/keys.json") as f:
         data = json.load(f)
     return data[exchange]["key"], data[exchange]["interval"]
