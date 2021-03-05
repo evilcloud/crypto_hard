@@ -29,8 +29,14 @@ font_small = ImageFont.truetype(
 )
 
 
+def get_exchange_data(exchange: str):
+    with open("venv/keys.json") as f:
+        data = json.load(f)
+    return data[exchange]["key"], data[exchange]["interval"]
+
+
 def coinmarketcap():
-    api_key = "ce24263e-b0fa-4be8-8e5c-9e5f64697b52"
+    api_key, _ = get_exchange_data("CoinmarketCap")
     url = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest"
     headers = {"Accepts": "application/json", "X-CMC_PRO_API_KEY": api_key}
 
