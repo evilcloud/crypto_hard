@@ -62,7 +62,7 @@ def quote_line(asset: str, price: float, spaces: int) -> str:
         "BTC": "฿",
         "ETH": "Δ",
     }
-    return f"{icons['icons']} {int(price)} {crypto_direction(asset, price)}"
+    return f"{icons['icons']} {int(price)} {crypto_direction(asset, price) if asset else 'X'}"
 
 
 def line_spaces(btc, eth):
@@ -87,7 +87,7 @@ while True:
         btc_direction = crypto_direction("BTC", btc)
         eth_direction = crypto_direction("ETH", eth)
     else:
-        btc_direction = "X"
+        # btc_direction = "X"
         draw.text((100, 25), "EX-ERROR", font=font_small, fill=255)
 
     btc_spaces, eth_spaces = line_spaces(btc, eth)
