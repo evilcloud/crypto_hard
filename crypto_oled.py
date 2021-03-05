@@ -9,7 +9,8 @@ from PIL import Image, ImageDraw, ImageFont
 from board import SCL, SDA
 import busio
 import adafruit_ssd1306
-from oled_ada import height, time_interval, width
+
+# from oled_ada import height, time_interval, width
 
 
 # Initialize and clean screen
