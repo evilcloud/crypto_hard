@@ -94,11 +94,6 @@ eth = 0
 while True:
     disp.fill(0)
     draw.rectangle((0, 0, width, height), outline=0, fill=0)
-    
-    prices = crypto_prices.from_coinmarketcap(['BTC', 'ETH'])
-    
-    
-    
     btc_quote, eth_quote = coinmarketcap()
     if btc_quote and eth_quote:
         btc = btc_quote
