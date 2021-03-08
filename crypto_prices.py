@@ -18,6 +18,7 @@ def get_key(exchange):
     """
     with open("venv/keys.json") as f:
         data = json.load(f)
+        input(data)
     return data[exchange]["key"]
 
 
