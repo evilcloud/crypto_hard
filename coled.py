@@ -62,6 +62,12 @@ def main():
 
     if width and height:
         print(f"Launching OLED resolution {width} x {height} for {assets}")
+        assets_prices = crypto_prices.from_coinmarketcap(
+            ["BTC", "ETH", "DOT", "Cardano"]
+        )
+        for line in constructor.construct_line(assets_prices):
+            print(line)
+
     else:
         print("Please provide OLED model")
         print("Currently supprted models are:")
