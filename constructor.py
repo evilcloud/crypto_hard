@@ -24,23 +24,23 @@ def get_direction(assets_prices):
     return assets_dirs
 
 
-def define_spaces(assets_prices):
-    """Determines the max line length based on line lenght of all prices
+# def define_spaces(assets_prices):
+#     """Determines the max line length based on line lenght of all prices
 
-    Args:
-        assets_prices (dict): {"SYM": price}
+#     Args:
+#         assets_prices (dict): {"SYM": price}
 
-    Returns:
-        max_space (int): number of max spaces (incl. separators)
-    """
-    prices = set()
-    asset_spaces = []
-    for asset in assets_prices:
-        prices.add(len(str(int(assets_prices[asset]))))
-    max_len = max(prices)
-    for asset in assets_prices:
-        asset_spaces[asset] = max_len - len(str(int(assets_prices[asset])))
-    return max(asset_spaces)
+#     Returns:
+#         max_space (int): number of max spaces (incl. separators)
+#     """
+#     prices = set()
+#     asset_spaces = []
+#     for asset in assets_prices:
+#         prices.add(len(str(int(assets_prices[asset]))))
+#     max_len = max(prices)
+#     for asset in assets_prices:
+#         asset_spaces[asset] = max_len - len(str(int(assets_prices[asset])))
+#     return max(asset_spaces)
 
 
 def construct_line(assets_prices):

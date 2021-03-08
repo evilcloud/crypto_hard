@@ -70,9 +70,11 @@ def main():
     if width and height:
         print(f"Launching OLED resolution {width} x {height} for {assets}")
         assets_prices = crypto_prices.from_coinmarketcap(assets)
-        for line in constructor.construct_line(assets_prices):
+        lines = constructor.construct_line(assets_prices)
+        for line in lines:
             print(line)
-        oled_print(width, height, assets_prices)
+        oled_print(width, height, lines)
+        input("printing cycle")
 
     else:
         print("Please provide OLED model")
