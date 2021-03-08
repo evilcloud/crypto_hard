@@ -13,7 +13,7 @@ i2c = busio.I2C(SCL, SDA)
 
 def oled_print(width, height, assets):
     disp = adafruit_ssd1306.SSD1306_I2C(width, height, i2c)
-    image = Image.new("1", width, height)
+    image = Image.new("1", (width, height))
     draw = ImageDraw.Draw(image)
     disp.fill(255)
     disp.show()
