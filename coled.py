@@ -32,7 +32,7 @@ def oled_print(width, height, assets):
 
     while True:
         y_cursor = 0
-        for line in constructor.construct_line(assets_prices):
+        for line in constructor.construct_line(assets):
             disp.fill(0)
             draw.rectangle((0, 0, width, height), outline=0, fill=0)
             assets_prices = crypto_prices.from_coinmarketcap(assets)
