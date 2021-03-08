@@ -69,12 +69,15 @@ def construct_line(assets_prices):
     return lines
 
 
-def test():
-    assets_prices = crypto_prices.from_coinmarketcap(["BTC", "ETH", "DOT", "Cardano"])
-    for line in construct_line(assets_prices):
-        print(line)
+# def test():
+#     assets_prices = crypto_prices.from_coinmarketcap(["BTC", "ETH", "DOT", "Cardano"])
+#     for line in construct_line(assets_prices):
+#         print(line)
 
 
 def main():
-    if __name__ == "__main__":
-        test()
+    print("Line constructor module")
+
+
+if __name__ == "__main__":
+    main()
