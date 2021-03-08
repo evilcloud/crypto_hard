@@ -40,7 +40,7 @@ def oled_print(width, height, assets):
 
     while True:
         y_cursor = 0
-        input(assets)
+        input(f"assets: {assets}")
         assets_prices = crypto_prices.from_coinmarketcap(assets)
         for line in constructor.construct_line(assets_prices):
             input(f"about to {line}")
