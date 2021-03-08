@@ -40,8 +40,10 @@ def oled_print(width, height, assets):
 
     while True:
         y_cursor = 0
+        input(assets)
         assets_prices = crypto_prices.from_coinmarketcap(assets)
         for line in constructor.construct_line(assets_prices):
+            input(f"about to {line}")
             disp.fill(0)
             draw.rectangle((0, 0, width, height), outline=0, fill=0)
             draw.text((0, y_cursor), line, font=font, fill=255)
@@ -77,7 +79,6 @@ def main():
         for line in lines:
             print(line)
             oled_print(width, height, line)
-        input("printing cycle")
 
     else:
         print("Please provide OLED model")
