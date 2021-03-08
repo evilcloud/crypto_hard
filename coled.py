@@ -76,7 +76,7 @@ def main():
         lines = constructor.construct_line(assets_prices)
         for line in lines:
             print(line)
-        oled_print(width, height, lines)
+            oled_print(width, height, line)
         input("printing cycle")
 
     else:
