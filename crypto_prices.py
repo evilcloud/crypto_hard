@@ -52,6 +52,8 @@ def from_coinmarketcap(assets: list):
         input(entry)
         if entry["symbol"] in (assets) or entry["name"] in (assets):
             prices[entry["symbol"]] = entry["quote"]["USD"]["price"]
+            if len(assets) == len(prices):
+                break
 
     return prices
 
