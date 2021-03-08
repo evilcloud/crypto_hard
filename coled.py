@@ -29,12 +29,13 @@ def oled_print(width, height, assets):
     disp.show()
 
     asset_nr = 1 if isinstance(assets, str) else len(assets)
-    lines_height = (height / asset_nr) - (asset_nr - 1)
+    nominal_height = (height / asset_nr) - (asset_nr - 1)
+    lines_height = nominal_height if nominal_height <= 14 else 14
     font = ImageFont.truetype(
         "/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf", int(lines_height)
     )
     font_small = ImageFont.truetype(
-        "/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf", 8
+        "/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf", lines_height
     )
 
     while True:
@@ -44,7 +45,9 @@ def oled_print(width, height, assets):
             disp.fill(0)
             draw.rectangle((0, 0, width, height), outline=0, fill=0)
             draw.text((0, y_cursor), line, font=font, fill=255)
+            y_cursor = +lines_height + 1
             disp.show()
+            input(line)
             time.sleep(60)
 
 
