@@ -2,6 +2,14 @@ import crypto_prices
 
 
 def get_direction(assets_prices):
+    """Returns "▲" or "▼" (or X) for the prices relative to unit price
+
+    Args:
+        assets_prices (dict): {"SYM": price}
+
+    Returns:
+        dict: {"SYM": "▲" or "▼" or "X}
+    """
     assets_dirs = {}
     unit_price = {
         "BTC": 35964.79,
@@ -17,6 +25,14 @@ def get_direction(assets_prices):
 
 
 def define_spaces(assets_prices):
+    """Determines the max line length based on line lenght of all prices
+
+    Args:
+        assets_prices (dict): {"SYM": price}
+
+    Returns:
+        max_space (int): number of max spaces (incl. separators)
+    """
     prices = set()
     asset_spaces = []
     for asset in assets_prices:
@@ -24,9 +40,18 @@ def define_spaces(assets_prices):
     max_len = max(prices)
     for asset in assets_prices:
         asset_spaces[asset] = max_len - len(str(int(assets_prices[asset])))
+    return max(asset_spaces)
 
 
 def construct_line(assets_prices):
+    """constructs the printline
+
+    Args:
+        assets_prices (dict): {"SYM": price}
+
+    Returns:
+        list: lines ready to be used, printed
+    """
     assets_dirs = get_direction(assets_prices)
 
     def number():
