@@ -12,6 +12,13 @@ i2c = busio.I2C(SCL, SDA)
 
 
 def oled_print(width, height, assets):
+    """Prints line by line assets information
+
+    Args:
+        width (int): width of the OLED screen
+        height (int): height of the OLED screen
+        assets (list): a list of assets
+    """
     disp = adafruit_ssd1306.SSD1306_I2C(width, height, i2c)
     image = Image.new("1", (width, height))
     draw = ImageDraw.Draw(image)
@@ -32,11 +39,11 @@ def oled_print(width, height, assets):
 
     while True:
         y_cursor = 0
-        for line in constructor.construct_line(assets):
+        assets_prices = crypto_prices.from_coinmarketcap(assets)
+        for line in constructor.construct_line(assets_prices):
             disp.fill(0)
             draw.rectangle((0, 0, width, height), outline=0, fill=0)
-            assets_prices = crypto_prices.from_coinmarketcap(line)
-            draw.text((0, y_cursor), assets_prices, font=font, fill=255)
+            draw.text((0, y_cursor), line, font=font, fill=255)
             disp.show()
             time.sleep(60)
 
@@ -62,9 +69,7 @@ def main():
 
     if width and height:
         print(f"Launching OLED resolution {width} x {height} for {assets}")
-        assets_prices = crypto_prices.from_coinmarketcap(
-            ["BTC", "ETH", "DOT", "Cardano"]
-        )
+        assets_prices = crypto_prices.from_coinmarketcap(assets)
         for line in constructor.construct_line(assets_prices):
             print(line)
         oled_print(width, height, assets_prices)
