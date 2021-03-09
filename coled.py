@@ -65,7 +65,15 @@ def oled_print(width, height):
             y_cursor = y_cursor + lines_height + 1
         disp.image(image)
         disp.show()
-        interval = 900
+
+        # Interval updated?
+        with open("interval.json") as f:
+            interval = json.load(f)["on"]
+        if not interval:
+            print("No valid interval indication loaded")
+            interval = 900
+
+        print(f"next cycle interval is {interval} sec")
         for i in tqdm(range(interval)):
             draw.text((width - 10, height - 10), f"{i/interval*100}%")
             disp.show()
