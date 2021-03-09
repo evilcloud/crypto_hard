@@ -32,8 +32,7 @@ def oled_print(width, height):
     while True:
         with open("assets.json") as f:
             data = json.load(f)
-        input(data)
-        assets = 0
+        assets = data["assets"]
         assets_prices = crypto_prices.from_coinmarketcap(assets)
         lines = constructor.construct_line(assets_prices)
         for line in lines:
