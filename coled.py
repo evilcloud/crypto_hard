@@ -53,7 +53,7 @@ def oled_print(width, height):
             "/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf", int(lines_height)
         )
         font_small = ImageFont.truetype(
-            "/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf", lines_height
+            "/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf", 7
         )
 
         y_cursor = 0
@@ -65,8 +65,15 @@ def oled_print(width, height):
             y_cursor = y_cursor + lines_height + 1
         disp.image(image)
         disp.show()
-        for _ in tqdm(range(900)):
+        interval = 900
+        for i in tqdm(range(interval)):
+            draw.text((width - 10, height - 10), f"{i/interval*100}%")
+            disp.image(image)
+            disp.show()
             time.sleep(1)
+            draw.rectangle((width - 10, height - 10, width, height), outline=0, fill=0)
+            disp.image(image)
+            disp.show()
 
 
 def main():
