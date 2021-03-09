@@ -24,7 +24,7 @@ def get_direction(assets_prices):
         if up:
             assets_dirs[asset] = "▲" if assets_prices[asset] > up else "▼"
         else:
-            assets_dirs[asset] = "_" if assets_prices(asset) else "X"
+            assets_dirs[asset] = "_" if assets_prices[asset] else "X"
     return assets_dirs
 
 
