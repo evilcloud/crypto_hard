@@ -29,16 +29,6 @@ def oled_print(width, height):
     disp.fill(0)
     disp.show()
 
-    asset_nr = 1 if isinstance(assets, str) else len(assets)
-    nominal_height = (height / asset_nr) - (asset_nr - 1)
-    lines_height = int(nominal_height) if nominal_height <= 14 else 14
-    font = ImageFont.truetype(
-        "/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf", int(lines_height)
-    )
-    font_small = ImageFont.truetype(
-        "/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf", lines_height
-    )
-
     while True:
         with open("assets.json") as f:
             data = json.load(f)
@@ -49,6 +39,16 @@ def oled_print(width, height):
         for line in lines:
             print(line)
         # oled_print(width, height, lines)
+
+        asset_nr = 1 if isinstance(assets, str) else len(assets)
+        nominal_height = (height / asset_nr) - (asset_nr - 1)
+        lines_height = int(nominal_height) if nominal_height <= 14 else 14
+        font = ImageFont.truetype(
+            "/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf", int(lines_height)
+        )
+        font_small = ImageFont.truetype(
+            "/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf", lines_height
+        )
 
         y_cursor = 0
         # assets_prices = crypto_prices.from_coinmarketcap(assets)
