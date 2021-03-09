@@ -43,10 +43,11 @@ def oled_print(width, height, assets):
         y_cursor = 0
         # assets_prices = crypto_prices.from_coinmarketcap(assets)
         # for line in constructor.construct_line(assets_prices):
+        draw.rectangle((0, 0, width, height), outline=0, fill=0)
         for line in assets:
             disp.fill(0)
-            draw.rectangle((0, 0, width, height), outline=0, fill=0)
             draw.text((0, y_cursor), line, font=font, fill=255)
+            print(f"{line} on line {y_cursor}")
             y_cursor = +lines_height + 1
         disp.Image(image)
         disp.show()

@@ -49,7 +49,7 @@ def from_coinmarketcap(assets: list):
         return prices
 
     for entry in resp["data"]:
-        input(f"from cmc - entry: {entry}")
+        # input(f"from cmc - entry: {entry}")
         if entry["symbol"] in (assets) or entry["name"] in (assets):
             prices[entry["symbol"]] = entry["quote"]["USD"]["price"]
             if len(assets) == len(prices):
