@@ -4,6 +4,7 @@ import sys
 import time
 import constructor
 import crypto_prices
+from tqdm import tqdm
 from PIL import Image, ImageDraw, ImageFont
 
 from board import SCL, SDA
@@ -40,18 +41,17 @@ def oled_print(width, height, assets):
 
     while True:
         y_cursor = 0
-        input(f"assets: {assets}")
         # assets_prices = crypto_prices.from_coinmarketcap(assets)
         # for line in constructor.construct_line(assets_prices):
         for line in assets:
-            input(f"about to {line}")
             disp.fill(0)
             draw.rectangle((0, 0, width, height), outline=0, fill=0)
             draw.text((0, y_cursor), line, font=font, fill=255)
             y_cursor = +lines_height + 1
             disp.show()
             input(line)
-            time.sleep(60)
+            for i in tqdm(range(60)):
+                time.sleep(1)
 
 
 def main():
