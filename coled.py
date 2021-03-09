@@ -30,7 +30,7 @@ def oled_print(width, height, assets):
 
     asset_nr = 1 if isinstance(assets, str) else len(assets)
     nominal_height = (height / asset_nr) - (asset_nr - 1)
-    lines_height = nominal_height if nominal_height <= 14 else 14
+    lines_height = int(nominal_height) if nominal_height <= 14 else 14
     font = ImageFont.truetype(
         "/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf", int(lines_height)
     )
