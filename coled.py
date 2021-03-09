@@ -67,8 +67,12 @@ def oled_print(width, height):
         disp.show()
 
         # Interval updated?
-        with open("interval.json") as f:
-            interval = json.load(f)["on"]
+        try:
+            with open("interval.json") as f:
+                interval = json.load(f)["on"]
+        except FileExistsError:
+            print('no interval file found')
+            interval = 0
         if not interval:
             print("No valid interval indication loaded")
             interval = 900
