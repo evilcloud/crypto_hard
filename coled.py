@@ -47,7 +47,7 @@ def oled_print(width, height, assets):
             disp.fill(0)
             draw.text((0, y_cursor), line, font=font, fill=255)
             print(f"{line} on line {y_cursor}")
-            y_cursor = +lines_height + 1
+            y_cursor = y_cursor + lines_height + 1
         disp.image(image)
         disp.show()
         for _ in tqdm(range(600)):
