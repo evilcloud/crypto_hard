@@ -78,7 +78,7 @@ def main():
         lines = constructor.construct_line(assets_prices)
         for line in lines:
             print(line)
-        oled_print(width, height, line)
+        oled_print(width, height, lines)
 
     else:
         print("Please provide OLED model")

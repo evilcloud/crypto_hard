@@ -52,6 +52,7 @@ def construct_line(assets_prices):
     Returns:
         list: lines ready to be used, printed
     """
+    print(f"constructing line with {assets_prices}")
     assets_dirs = get_direction(assets_prices)
 
     def number():
