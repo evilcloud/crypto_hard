@@ -11,6 +11,12 @@ from PIL import Image, ImageDraw, ImageFont
 from board import SCL, SDA
 
 
+def get_assets():
+    with open("assets.json") as f:
+        data = json.load(f)
+    return data["assets"]
+
+
 def oled_print(width, height):
     """Prints line by line assets information
 
@@ -19,6 +25,8 @@ def oled_print(width, height):
         height (int): height of the OLED screen
         assets (list): a list of assets
     """
+
+    # Setting up the OLED and making the first clean up
     i2c = busio.I2C(SCL, SDA)
     disp = adafruit_ssd1306.SSD1306_I2C(width, height, i2c)
     image = Image.new("1", (width, height))
@@ -29,10 +37,9 @@ def oled_print(width, height):
     disp.fill(0)
     disp.show()
 
+    # Let's get looping and working
     while True:
-        with open("assets.json") as f:
-            data = json.load(f)
-        assets = data["assets"]
+        assets = get_assets()
         assets_prices = crypto_prices.from_coinmarketcap(assets)
         lines = constructor.construct_line(assets_prices)
         for line in lines:
@@ -58,8 +65,8 @@ def oled_print(width, height):
             y_cursor = y_cursor + lines_height + 1
         disp.image(image)
         disp.show()
-        for _ in tqdm(range(600)):
-            time.sleep(0.1)
+        for _ in tqdm(range(900)):
+            time.sleep(1)
 
 
 def main():
