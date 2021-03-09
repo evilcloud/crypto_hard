@@ -9,8 +9,6 @@ from PIL import Image, ImageDraw, ImageFont
 
 from board import SCL, SDA
 
-i2c = busio.I2C(SCL, SDA)
-
 
 def oled_print(width, height, assets):
     """Prints line by line assets information
@@ -20,6 +18,7 @@ def oled_print(width, height, assets):
         height (int): height of the OLED screen
         assets (list): a list of assets
     """
+    i2c = busio.I2C(SCL, SDA)
     disp = adafruit_ssd1306.SSD1306_I2C(width, height, i2c)
     image = Image.new("1", (width, height))
     draw = ImageDraw.Draw(image)
