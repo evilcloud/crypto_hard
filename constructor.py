@@ -1,26 +1,30 @@
 import crypto_prices
+import json
 
 
 def get_direction(assets_prices):
-    """Returns "▲" or "▼" (or X) for the prices relative to unit price
+    """Returns "▲" or "▼" (or X or _) for the prices relative to unit cost base from ucb.json
 
     Args:
         assets_prices (dict): {"SYM": price}
 
     Returns:
-        dict: {"SYM": "▲" or "▼" or "X}
+        dict: {"SYM": "▲" or "▼" or "_" for non-existent. "X" for error}
     """
+    with open("venv/ucb.json") as f:
+        unit_price = json.load(f)
+
     assets_dirs = {}
-    unit_price = {
-        "BTC": 35964.79,
-        "ETH": 156.85,
-    }
+    # unit_price = {
+    #     "BTC": 35964.79,
+    #     "ETH": 156.85,
+    # }
     for asset in assets_prices:
         up = unit_price.get(asset)
         if up:
             assets_dirs[asset] = "▲" if assets_prices[asset] > up else "▼"
         else:
-            assets_dirs[asset] = "X"
+            assets_dirs[asset] = "_" if assets_prices(asset) else "X"
     return assets_dirs
 
 

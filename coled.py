@@ -2,6 +2,7 @@ import adafruit_ssd1306
 import busio
 import sys
 import time
+import json
 import constructor
 import crypto_prices
 from tqdm import tqdm
@@ -39,6 +40,16 @@ def oled_print(width, height, assets):
     )
 
     while True:
+        with open("assets.json") as f:
+            data = json.load(f)
+        assets = data("assets")
+        input(assets)
+        assets_prices = crypto_prices.from_coinmarketcap(assets)
+        lines = constructor.construct_line(assets_prices)
+        for line in lines:
+            print(line)
+        # oled_print(width, height, lines)
+
         y_cursor = 0
         # assets_prices = crypto_prices.from_coinmarketcap(assets)
         # for line in constructor.construct_line(assets_prices):
@@ -75,11 +86,11 @@ def main():
 
     if width and height:
         print(f"Launching OLED resolution {width} x {height} for {assets}")
-        assets_prices = crypto_prices.from_coinmarketcap(assets)
-        lines = constructor.construct_line(assets_prices)
-        for line in lines:
-            print(line)
-        oled_print(width, height, lines)
+        # assets_prices = crypto_prices.from_coinmarketcap(assets)
+        # lines = constructor.construct_line(assets_prices)
+        # for line in lines:
+        #     print(line)
+        # oled_print(width, height, lines)
 
     else:
         print("Please provide OLED model")
