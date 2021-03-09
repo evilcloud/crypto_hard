@@ -11,10 +11,10 @@ from PIL import Image, ImageDraw, ImageFont
 from board import SCL, SDA
 
 
-def get_assets():
-    with open("assets.json") as f:
+def get_settings():
+    with open("settings.json") as f:
         data = json.load(f)
-    return data["assets"]
+    return data
 
 
 def oled_print(width, height):
@@ -39,7 +39,7 @@ def oled_print(width, height):
 
     # Let's get looping and working
     while True:
-        assets = get_assets()
+        assets = get_settings()["assets"]
         assets_prices = crypto_prices.from_coinmarketcap(assets)
         lines = constructor.construct_line(assets_prices)
         for line in lines:
@@ -67,9 +67,9 @@ def oled_print(width, height):
         disp.show()
 
         # Interval updated?
-        with open("assets.json") as f:
-            data = json.load(f)
-        interval = data["interval"]
+        # with open("assets.json") as f:
+        #     data = json.load(f)
+        interval = get_settings()["interval"]
 
         if not interval:
             print("No valid interval indication loaded")
