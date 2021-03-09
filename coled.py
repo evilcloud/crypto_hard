@@ -55,7 +55,7 @@ def oled_print(width, height, assets):
 
 
 def main():
-    assets = ["BTC", "ETH"]
+    assets = ["BTC", "ETH", "DOT"]
     width = 0
     height = 0
     oled_mod = {
