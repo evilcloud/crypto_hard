@@ -7,7 +7,7 @@ A massive mess of a hacked lines from all over the place that somehow gets the I
 
 Prerequisites:
 
-- make a file assets.json and enter your assets as an array like this:
+- make a file `assets.json` and enter your assets as an array like this:
 ```json
 {
     "assets": [
