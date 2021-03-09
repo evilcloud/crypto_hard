@@ -68,7 +68,6 @@ def oled_print(width, height):
         interval = 900
         for i in tqdm(range(interval)):
             draw.text((width - 10, height - 10), f"{i/interval*100}%")
-            disp.image(image)
             disp.show()
             time.sleep(1)
             draw.rectangle((width - 10, height - 10, width, height), outline=0, fill=0)
