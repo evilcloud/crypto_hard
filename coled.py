@@ -48,10 +48,9 @@ def oled_print(width, height, assets):
             draw.rectangle((0, 0, width, height), outline=0, fill=0)
             draw.text((0, y_cursor), line, font=font, fill=255)
             y_cursor = +lines_height + 1
-            disp.show()
-            input(line)
-            for i in tqdm(range(60)):
-                time.sleep(1)
+        disp.show()
+        for i in tqdm(range(60)):
+            time.sleep(1)
 
 
 def main():
