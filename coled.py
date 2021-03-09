@@ -11,7 +11,7 @@ from PIL import Image, ImageDraw, ImageFont
 from board import SCL, SDA
 
 
-def oled_print(width, height, assets):
+def oled_print(width, height):
     """Prints line by line assets information
 
     Args:
@@ -91,6 +91,7 @@ def main():
         # for line in lines:
         #     print(line)
         # oled_print(width, height, lines)
+        oled_print(width, height)
 
     else:
         print("Please provide OLED model")
