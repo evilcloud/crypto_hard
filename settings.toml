@@ -1,0 +1,5 @@
+[assets]
+crypto = ["BTC", "ETH"]
+
+[interval]
+900

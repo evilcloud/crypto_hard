@@ -1,0 +1,6 @@
+---
+assets:
+  - BTC
+  - ETH
+
+interval: 900

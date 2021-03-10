@@ -1,5 +1,6 @@
 import crypto_prices
 import json
+import pyyaml
 
 
 def get_direction(assets_prices):
@@ -11,12 +12,17 @@ def get_direction(assets_prices):
     Returns:
         dict: {"SYM": "▲" or "▼" or "_" for non-existent. "X" for error}
     """
-    with open("venv/ucb.json") as f:
-        unit_price = json.load(f)
+    # with open("venv/ucb.json") as f:
+    #     unit_price = json.load(f)
+
+    with open("venv/holdings.yaml") as f:
+        unit_price = yaml.load(f, Loader = yaml.Loader)
+    
 
     assets_dirs = {}
     for asset in assets_prices:
-        up = unit_price.get(asset)
+        # up = unit_price.get(asset)
+        up = unit_price[asset].get("ucb")
         if up:
             assets_dirs[asset] = "▲" if assets_prices[asset] > up else "▼"
         else:
