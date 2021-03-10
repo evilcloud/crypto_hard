@@ -1,6 +1,6 @@
 import crypto_prices
 import json
-import pyyaml
+import yaml
 
 
 def get_direction(assets_prices):
@@ -16,8 +16,7 @@ def get_direction(assets_prices):
     #     unit_price = json.load(f)
 
     with open("venv/holdings.yaml") as f:
-        unit_price = yaml.load(f, Loader = yaml.Loader)
-    
+        unit_price = yaml.load(f, Loader=yaml.Loader)
 
     assets_dirs = {}
     for asset in assets_prices:
