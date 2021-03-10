@@ -7,7 +7,7 @@ A massive mess of a hacked lines from all over the place that somehow gets the I
 
 Prerequisites:
 
-- make a file `assets.json` and enter your assets as an array like this:
+- a file `settings.json` defines the assets and intervals between API requests. Changes during runtime will be loaded with the next cycle:
 ```json
 {
     "assets": [
@@ -18,7 +18,7 @@ Prerequisites:
 }
 ```
 
-- in a directory `venv` make a file `keys.json` and do this:
+- in a directory `venv` make a file `keys.json` and do this for exchange keys:
 ```json
 {
     "coinmarketcap": {
@@ -31,6 +31,7 @@ Prerequisites:
 ```json
 {
     "BTC": 3000,
-    "ETH": 1000
+    "ETH": 1000,
+    "DOT": 20
 }
 ```
