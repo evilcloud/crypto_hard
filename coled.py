@@ -81,7 +81,7 @@ def oled_print(width, height):
         print(f"next cycle interval is in {i_min} min {i_sec} sec")
         for i in tqdm(range(interval)):
             draw.rectangle(
-                (width, height, width - 3, height - (int(height / interval))),
+                (width - 2, height - 2, width, height),
                 outline=0,
                 fill=255,
             )
@@ -94,7 +94,7 @@ def oled_print(width, height):
             disp.image(image)
             disp.show()
             time.sleep(1)
-            draw.rectangle((width - 20, height - 10, width, height), outline=0, fill=0)
+            draw.rectangle((width, height, width - 2, height - 2), outline=0, fill=0)
             disp.image(image)
             disp.show()
 
