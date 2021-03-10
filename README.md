@@ -14,7 +14,8 @@ Prerequisites:
         "BTC",
         "ETH",
         "DOT"
-    ]
+    ],
+    "interval": 900
 }
 ```
 
