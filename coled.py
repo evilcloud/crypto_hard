@@ -89,7 +89,7 @@ def oled_print(width, height):
             disp.image(image)
             disp.show()
             time.sleep(1)
-            draw.rectangle((width - 10, height - 10, width, height), outline=0, fill=0)
+            draw.rectangle((width - 20, height - 10, width, height), outline=0, fill=0)
             disp.image(image)
             disp.show()
 
