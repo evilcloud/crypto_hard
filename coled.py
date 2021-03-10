@@ -11,13 +11,13 @@ from PIL import Image, ImageDraw, ImageFont
 from board import SCL, SDA
 
 
-def get_settings():
+def get_json(filename):
     """returns the settings from "settings.json" file
 
     Returns:
         dict: content of settings.json
     """
-    with open("settings.json") as f:
+    with open(filename) as f:
         data = json.load(f)
     return data
 
@@ -47,7 +47,7 @@ def oled_print(width, height):
 
     # this is the endless loop
     while True:
-        assets = get_settings()["assets"]
+        assets = get_json("settings.json")["assets"]
         assets_prices = crypto_prices.from_coinmarketcap(assets)
         lines = constructor.construct_line(assets_prices)
         for line in lines:
@@ -73,7 +73,7 @@ def oled_print(width, height):
         disp.show()
 
         # update interval, but make sure we don't DDOS ourselves with stupid requests
-        interval = get_settings()["interval"]
+        interval = get_json("settings.json")["interval"]
         if not interval:
             print("No valid interval indication loaded")
             interval = 900
@@ -100,6 +100,9 @@ def main():
     numerize = lambda entry: "".join(list(filter(str.isdigit, entry)))
     args = sys.argv
 
+    # oleds = get_json("oled.json")
+    # for model in oleds:
+    #     oled_mod[numerize(model)] = oleds
     if len(args) == 2:
         # mod_numeric = filter(str.isdigit, args[1])
         _, width, height = oled_mod.get(numerize(args[1]))
@@ -110,11 +113,6 @@ def main():
 
     if width and height:
         print(f"Launching OLED resolution {width} x {height}")
-        # assets_prices = crypto_prices.from_coinmarketcap(assets)
-        # lines = constructor.construct_line(assets_prices)
-        # for line in lines:
-        #     print(line)
-        # oled_print(width, height, lines)
         oled_print(width, height)
 
     else:
