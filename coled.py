@@ -26,7 +26,7 @@ def oled_setup(width, height):
     i2c = busio.I2C(SCL, SDA)
     disp = adafruit_ssd1306.SSD1306_I2C(width, height, i2c)
     image = Image.new("1", (width, height))
-    draw = ImageDraw(image)
+    draw = ImageDraw.Draw(image)
     disp.fill(255)
     disp.show()
     time.sleep(1)
