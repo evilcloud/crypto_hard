@@ -80,7 +80,12 @@ def oled_print(width, height):
         i_min, i_sec = divmod(interval, 60)
         print(f"next cycle interval is in {i_min} min {i_sec} sec")
         for i in tqdm(range(interval)):
-            draw.text((width - 10, height - 10), f"{i/interval*100}%")
+            draw.text(
+                (width - 10, height - 10),
+                f"{i/interval*100}%",
+                font=font_small,
+                fill=255,
+            )
             disp.image(image)
             disp.show()
             time.sleep(1)
