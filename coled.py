@@ -81,8 +81,8 @@ def oled_print(width, height):
         print(f"next cycle interval is in {i_min} min {i_sec} sec")
         for i in tqdm(range(interval)):
             draw.text(
-                (width - 10, height - 10),
-                f"{i/interval*100}%",
+                (width - 20, height - 10),
+                f"{int(i/interval*100)}%",
                 font=font_small,
                 fill=255,
             )
