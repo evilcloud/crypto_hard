@@ -43,28 +43,15 @@ def oled_print(width, height):
         height (int): height of the OLED screen
         assets (list): a list of assets
     """
-
-    # Setting up the OLED and making the first clean up
-    # i2c = busio.I2C(SCL, SDA)
-    # disp = adafruit_ssd1306.SSD1306_I2C(width, height, i2c)
-    # image = Image.new("1", (width, height))
-    # draw = ImageDraw.Draw(image)
-    # disp.fill(255)
-    # disp.show()
-    # time.sleep(1)
-    # disp.fill(0)
-    # disp.show()
-
     disp, image, draw = oled_setup(width, height)
 
-    # Let's get looping and working
+    # this is the endless loop
     while True:
         assets = get_settings()["assets"]
         assets_prices = crypto_prices.from_coinmarketcap(assets)
         lines = constructor.construct_line(assets_prices)
         for line in lines:
             print(line)
-        # oled_print(width, height, lines)
 
         asset_nr = 1 if isinstance(assets, str) else len(assets)
         nominal_height = (height / asset_nr) - (asset_nr - 1)
@@ -85,18 +72,16 @@ def oled_print(width, height):
         disp.image(image)
         disp.show()
 
-        # Interval updated?
-        # with open("assets.json") as f:
-        #     data = json.load(f)
+        # update interval, but make sure we don't DDOS ourselves with stupid requests
         interval = get_settings()["interval"]
-
         if not interval:
             print("No valid interval indication loaded")
             interval = 900
-
-        print(f"next cycle interval is {interval} sec")
+        i_min, i_sec = divmod(interval, 60)
+        print(f"next cycle interval is in {i_min} min {i_sec} sec")
         for i in tqdm(range(interval)):
             draw.text((width - 10, height - 10), f"{i/interval*100}%")
+            disp.image(image)
             disp.show()
             time.sleep(1)
             draw.rectangle((width - 10, height - 10, width, height), outline=0, fill=0)

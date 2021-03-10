@@ -15,10 +15,6 @@ def get_direction(assets_prices):
         unit_price = json.load(f)
 
     assets_dirs = {}
-    # unit_price = {
-    #     "BTC": 35964.79,
-    #     "ETH": 156.85,
-    # }
     for asset in assets_prices:
         up = unit_price.get(asset)
         if up:
