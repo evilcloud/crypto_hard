@@ -90,7 +90,6 @@ def oled_print(width, height):
 
 
 def main():
-    assets = ["BTC", "ETH", "DOT"]
     width = 0
     height = 0
     oled_mod = {
@@ -117,7 +116,7 @@ def main():
 
     else:
         print("Please provide OLED model")
-        print("Currently supprted models are:")
+        print("Currently supported models are:")
         for entry in oled_mod:
             model, _, _ = oled_mod.get(entry)
             print(f"\t{model}")
