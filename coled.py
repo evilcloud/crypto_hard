@@ -12,9 +12,34 @@ from board import SCL, SDA
 
 
 def get_settings():
+    """returns the settings from "settings.json" file
+
+    Returns:
+        dict: content of settings.json
+    """
     with open("settings.json") as f:
         data = json.load(f)
     return data
+
+
+def oled_setup(width, height):
+    i2c = busio.I2C(SCL, SDA)
+    disp = adafruit_ssd1306.SSD1306__I2C(width, height, i2c)
+    image = Image.new("1", (width, height))
+    draw = ImageDraw(image)
+    disp.fill(255)
+    disp.show()
+    time.sleep(1)
+    disp.fill(0)
+    for i in range(height):
+        for j in range(width):
+            if j % 2 == 0:
+                disp.point(i, j, fill=255)
+    disp.show()
+    time.sleep(1)
+    disp.fill(0)
+    disp.show()
+    return disp, image, draw
 
 
 def oled_print(width, height):
@@ -27,15 +52,17 @@ def oled_print(width, height):
     """
 
     # Setting up the OLED and making the first clean up
-    i2c = busio.I2C(SCL, SDA)
-    disp = adafruit_ssd1306.SSD1306_I2C(width, height, i2c)
-    image = Image.new("1", (width, height))
-    draw = ImageDraw.Draw(image)
-    disp.fill(255)
-    disp.show()
-    time.sleep(1)
-    disp.fill(0)
-    disp.show()
+    # i2c = busio.I2C(SCL, SDA)
+    # disp = adafruit_ssd1306.SSD1306_I2C(width, height, i2c)
+    # image = Image.new("1", (width, height))
+    # draw = ImageDraw.Draw(image)
+    # disp.fill(255)
+    # disp.show()
+    # time.sleep(1)
+    # disp.fill(0)
+    # disp.show()
+
+    disp, image, draw = oled_setup(width, height)
 
     # Let's get looping and working
     while True:
@@ -61,7 +88,6 @@ def oled_print(width, height):
         for line in lines:
             disp.fill(0)
             draw.text((0, y_cursor), line, font=font, fill=255)
-            print(f"{line} on line {y_cursor}")
             y_cursor = y_cursor + lines_height + 1
         disp.image(image)
         disp.show()
@@ -105,7 +131,7 @@ def main():
         print(width, "x", height)
 
     if width and height:
-        print(f"Launching OLED resolution {width} x {height} for {assets}")
+        print(f"Launching OLED resolution {width} x {height}")
         # assets_prices = crypto_prices.from_coinmarketcap(assets)
         # lines = constructor.construct_line(assets_prices)
         # for line in lines:

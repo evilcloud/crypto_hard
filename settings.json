@@ -1,8 +1,7 @@
 {
     "assets": [
         "BTC",
-        "ETH",
-        "DOT"
+        "ETH"
     ],
     "interval": 900
 }
