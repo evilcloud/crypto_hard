@@ -31,13 +31,6 @@ def oled_setup(width, height):
     disp.show()
     time.sleep(1)
     disp.fill(0)
-    for i in range(height):
-        for j in range(width):
-            if j % 2 == 0:
-                disp.point(i, j, fill=255)
-    disp.show()
-    time.sleep(1)
-    disp.fill(0)
     disp.show()
     return disp, image, draw
 
