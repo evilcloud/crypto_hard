@@ -109,9 +109,11 @@ def main():
     numerize = lambda entry: "".join(list(filter(str.isdigit, entry)))
     args = sys.argv
 
-    # oleds = get_json("oled.json")
-    # for model in oleds:
-    #     oled_mod[numerize(model)] = oleds
+    oleds = get_json("oled.json")
+    for model in oleds:
+        oled_mod[numerize(model)] = oleds
+
+    input(oleds)
     if len(args) == 2:
         # mod_numeric = filter(str.isdigit, args[1])
         _, width, height = oled_mod.get(numerize(args[1]))
