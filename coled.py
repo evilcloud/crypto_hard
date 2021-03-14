@@ -131,9 +131,10 @@ def main():
         print("Please provide OLED model")
         print("Currently supported models are:")
         for entry in oled_mod:
-            input(entry)
+            print(entry)
             model, _, _ = oled_mod.get(entry)
-            print(f"\t{model}")
+            input(model)
+            # print(f"\t{model}")
 
         print("\nor provide resolution, like 128, 32")
 
