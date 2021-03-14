@@ -113,7 +113,7 @@ def main():
     for model in oleds:
         oled_mod[numerize(model)] = oleds
 
-    input(oleds)
+    input(oled_mod)
     if len(args) == 2:
         # mod_numeric = filter(str.isdigit, args[1])
         _, width, height = oled_mod.get(numerize(args[1]))
