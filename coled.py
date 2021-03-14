@@ -115,7 +115,6 @@ def main():
     for model in oleds:
         oled_mod[numerize(model)] = oleds
 
-    input(oled_mod)
     if len(args) == 2:
         # mod_numeric = filter(str.isdigit, args[1])
         _, width, height = oled_mod.get(numerize(args[1]))
@@ -132,6 +131,7 @@ def main():
         print("Please provide OLED model")
         print("Currently supported models are:")
         for entry in oled_mod:
+            input(entry)
             model, _, _ = oled_mod.get(entry)
             print(f"\t{model}")
 
