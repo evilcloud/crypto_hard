@@ -106,10 +106,12 @@ def main():
     #     "091": ['0.91"', 128, 32],
     #     "112": ['1.12"', 128, 128],
     # }
+
     numerize = lambda entry: "".join(list(filter(str.isdigit, entry)))
     args = sys.argv
 
     oleds = get_json("oled.json")
+    oled_mod = dict()
     for model in oleds:
         oled_mod[numerize(model)] = oleds
 
