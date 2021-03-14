@@ -102,10 +102,10 @@ def oled_print(width, height):
 def main():
     width = 0
     height = 0
-    oled_mod = {
-        "091": ['0.91"', 128, 32],
-        "112": ['1.12"', 128, 128],
-    }
+    # oled_mod = {
+    #     "091": ['0.91"', 128, 32],
+    #     "112": ['1.12"', 128, 128],
+    # }
     numerize = lambda entry: "".join(list(filter(str.isdigit, entry)))
     args = sys.argv
 
