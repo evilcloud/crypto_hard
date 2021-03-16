@@ -1,14 +1,9 @@
-import adafruit_ssd1306
-import busio
 import sys
 import time
 import json
 import constructor
 import crypto_prices
 from tqdm import tqdm
-from PIL import Image, ImageDraw, ImageFont
-
-from board import SCL, SDA
 
 
 def get_json(filename):
@@ -23,6 +18,11 @@ def get_json(filename):
 
 
 def oled_setup(width, height):
+    import adafruit_ssd1306
+    import busio
+    from PIL import Image, ImageDraw, ImageFont
+    from board import SCL, SDA
+
     i2c = busio.I2C(SCL, SDA)
     disp = adafruit_ssd1306.SSD1306_I2C(width, height, i2c)
     image = Image.new("1", (width, height))
@@ -100,28 +100,26 @@ def oled_print(width, height):
 
 
 def main():
+    numerize = lambda entry: "".join(c for c in entry if c.isdigit())
+
+    args = sys.argv
     width = 0
     height = 0
-    # oled_mod = {
-    #     "091": ['0.91"', 128, 32],
-    #     "112": ['1.12"', 128, 128],
-    # }
-
-    numerize = lambda entry: "".join(list(filter(str.isdigit, entry)))
-    args = sys.argv
-
     oleds = get_json("oled.json")
-    oled_mod = dict()
-    for model in oleds:
-        oled_mod[numerize(model)] = oleds
 
-    if len(args) == 2:
-        # mod_numeric = filter(str.isdigit, args[1])
-        _, width, height = oled_mod.get(numerize(args[1]))
-    elif len(args) == 3:
-        width = str(int(numerize(args[1])))
-        height = str(int(numerize(args[2])))
-        print(width, "x", height)
+    if len(args) == 3:
+        width = args[1]
+        height = args[2]
+    elif len(args) == 2:
+        model = numerize(args[1])
+
+        model_res = oleds.get(model)
+        if not model_res:
+            model_res = oleds.get(numerize(model))
+
+        model_res = oleds.get(model) if oleds.get(model) else oleds.get(numerize(model))
+        if model_res:
+            width, height = model_res
 
     if width and height:
         print(f"Launching OLED resolution {width} x {height}")
@@ -130,13 +128,10 @@ def main():
     else:
         print("Please provide OLED model")
         print("Currently supported models are:")
-        for entry in oled_mod:
-            print(entry)
-            model, _, _ = oled_mod.get(entry)
-            input(model)
-            # print(f"\t{model}")
+        for entry in oleds:
+            print(f"\t{entry}: {oleds[entry][0]} x {oleds[entry][1]}")
 
-        print("\nor provide resolution, like 128, 32")
+        print("\nor provide resolution like: 128, 32")
 
 
 if __name__ == "__main__":
